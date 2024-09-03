@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Movie</title>
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("picture/popcorn.jpg");
+    background-repeat: no-repeat;
+     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.movie-form {
+    width: 400px;
+    padding: 20px;
+    background-color: rgba(79, 74, 74, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    color: white;
+}
+
+.movie-form h2 {
+    text-align: center;
+    color: black;
+}
+
+.movie-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.movie-form input[type="text"], .movie-form input[type="date"], .movie-form input[type="number"], .movie-form select {
+    width: calc(100% - 24px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.movie-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.movie-form button:hover {
+    background-color: #333;
+}
+</style>
+</head>
+<body>
+<div class="movie-form">
+<form th:action="@{/movielist}" th:object="${movie}" method="post" enctype="multipart/form-data">
+    <h2>Add Movie</h2>
+
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" placeholder="Movie Title"  />
+<label for="genre">Genre</label>
+    <input type="text" name="genre" id="genre" placeholder="Movie Title"  />
+    <label for="imageUrl">Image:</label>
+    <input type="file" name="imageUrl" id="imageUrl" accept="image/*"  />
+    <button type="submit">Add Movie</button>
+</form>
+</div>
+</body>
+</html>

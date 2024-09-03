@@ -1,0 +1,144 @@
+@charset "ISO-8859-1";
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 20px;
+	background: linear-gradient(to right, #ffecd2, #fcb69f);
+	color: #444;
+}
+
+h1 {
+	color: #333;
+	text-align: center;
+	font-size: 2.5em;
+	margin-bottom: 20px;
+	background: -webkit-linear-gradient(#ee0979, #ff6a00);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+#myGrid {
+	width: 100%;
+	margin: 0 auto;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	background: #fff;
+}
+
+.slick-header-column {
+	background: linear-gradient(to right, #ee0979, #ff6a00);
+	color: white;
+	font-weight: bold;
+}
+
+.slick-header-column .slick-column-name {
+	color: #fff;
+}
+
+.slick-row {
+	transition: background-color 0.3s ease;
+}
+
+.slick-row:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+.slick-row:hover {
+	background-color: #ffecd2;
+}
+
+.slick-cell {
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.slick-header {
+	border-bottom: 1px solid #ddd;
+}
+
+.delete-btn {
+	background-color: #ff4d4d;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.delete-btn:hover {
+	background-color: #ff1a1a;
+}
+
+@media ( max-width : 600px) {
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+	th {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	tr {
+		border: 1px solid #ccc;
+	}
+	td {
+		border: none;
+		border-bottom: 1px solid #ddd;
+		position: relative;
+		padding-left: 50%;
+	}
+	td:before {
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+	td:nth-of-type(1):before {
+		content: "UserName";
+	}
+	td:nth-of-type(2):before {
+		content: "Email";
+	}
+	td:nth-of-type(3):before {
+		content: "Password";
+	}
+	td:nth-of-type(4):before {
+		content: "Location";
+	}
+	.modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%; 
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+}

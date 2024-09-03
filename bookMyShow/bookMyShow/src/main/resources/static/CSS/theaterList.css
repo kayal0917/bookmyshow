@@ -1,0 +1,94 @@
+@charset "ISO-8859-1";
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            color: #444;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(#ee0979, #ff6a00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #myGrid {
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: #fff;
+        }
+
+        .slick-header-column {
+            background: linear-gradient(to right, #ee0979, #ff6a00);
+            color: white;
+            font-weight: bold;
+        }
+
+        .slick-header-column .slick-column-name {
+            color: #fff;
+        }
+
+        .slick-row {
+            transition: background-color 0.3s ease;
+        }
+
+        .slick-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .slick-row:hover {
+            background-color: #ffecd2;
+        }
+
+        .slick-cell {
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .slick-header {
+            border-bottom: 1px solid #ddd;
+        }
+
+        @media (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                border: 1px solid #ccc;
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid #ddd;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+            }
+
+            td:nth-of-type(1):before { content: "UserName"; }
+            td:nth-of-type(2):before { content: "Email"; }
+            td:nth-of-type(3):before { content: "Password"; }
+            td:nth-of-type(4):before { content: "Location"; }
+        }

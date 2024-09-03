@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragment</title>
+    <link rel="stylesheet" th:href="@{/lib/slick.grid.css}" type="text/css">
+</head>
+<body>
+
+<div th:fragment="slickGridFragment">
+
+    <script th:src="@{/lib/jquery-1.7.min.js}"></script>
+    <script th:src="@{/lib/jquery-ui-1.8.16.custom.min.js}"></script>
+    <script th:src="@{/lib/jquery.event.drag-2.2.js}"></script>
+    <script th:src="@{/lib/slick.formatters.js}"></script>
+    <script th:src="@{/lib/slick.core.js}"></script>
+    <script th:src="@{/lib/slick.dataview.js}"></script>
+    <script th:src="@{/lib/slick.grid.js}"></script>
+    <script src="/JS/userList.js"></script>
+</div>
+
+</body>
+</html>

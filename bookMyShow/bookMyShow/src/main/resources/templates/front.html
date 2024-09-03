@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Trick</title>
+    <link rel="icon" type="image/png" href="picture/ticket.png">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            overflow: hidden; /* Hide scrollbar */
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.6); /* Dark background for header */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative; /* For positioning logo and nav */
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .logo-container img {
+            width: 100%; /* Make image fill container */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        header h1 {
+            margin: 10px 0;
+            font-size: 2em;
+            color: #fff;
+        }
+
+        nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            background: #ff0000; /* Red color */
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: #cc0000; /* Darker red for hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container" style="background-image: url('picture/back2.jpg'); background-size: cover; background-position: center; width: 100%; height: 100vh; position: absolute; top: 0; left: 0; z-index: -1;"></div>
+
+    <header>
+        <div class="logo-container">
+            <img src="picture/logo8.png" alt="Ticket Trick Logo">
+        </div>
+        <h1>TICKET TRICK</h1>
+        <nav>
+            <ul>
+                <li><a href="/signup" class="btn">SignUp</a></li>
+                <li><a href="/control" class="btn">SignIn</a></li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

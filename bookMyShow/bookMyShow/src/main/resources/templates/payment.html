@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Summary</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.booking-summary {
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 15px;
+	max-width: 400px;
+	width: 100%;
+}
+
+.booking-summary h1, .booking-summary h2 {
+	color: #333;
+	margin-top: 0;
+}
+
+.ticket-details, .contribution, .state-info, .amount-payable,
+	.ticket-type, .consent, .total-amount {
+	margin-bottom: 10px;
+}
+
+.ticket-details p, .contribution p, .state-info p, .amount-payable h2,
+	.ticket-type p, .consent p, .total-amount h2, .cancellation-policy {
+	color: #555;
+	margin: 5px 0;
+}
+
+.contribution a {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.contribution a:hover {
+	text-decoration: underline;
+}
+
+.ticket-type label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.proceed-button {
+	background-color: #28a745;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+	font-size: 16px;
+}
+
+.proceed-button:hover {
+	background-color: #218838;
+}
+
+.cancellation-policy {
+	font-size: 14px;
+	color: #777;
+	text-align: center;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+	<form th:action="@{/paymentprocess}" method="post">
+		<div class="booking-summary">
+			<h1>BOOKING SUMMARY</h1>
+			<div class="ticket-details">
+				<h2
+					th:text="'Seats - ' + ${session.allocation.seat} + ' (' + ${session.allocation.seatCount} + ' Tickets)'"></h2>
+<p th:text="'Movie Name:' + ${session.movie}"><p>
+<p th:text="'Show Date:' + ${session.date}"></p>
+<p th:text="'Show Time:' + ${session.allocation.showTime}"></p>
+				<p>
+					Sub total: Rs. <span th:text="${session.allocation.totalAmount}"></span>
+				</p>
+			</div>
+		
+			
+			<div class="amount-payable">
+				<h2>
+					Amount Payable: Rs. <span th:text="${session.allocation.totalAmount}"></span>
+				</h2>
+			</div>
+			
+			<div class="total-amount">
+				<h2>
+					TOTAL: Rs. <span th:text="${session.allocation.totalAmount}"></span>
+				</h2>
+			</div>
+			<button class="proceed-button">Proceed</button>
+			
+		</div>
+	</form>
+</body>
+</html>

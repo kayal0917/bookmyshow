@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Times</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #FF0066;
+            --secondary-color: #FF99AA;
+            --bg-color: #FFFFFF;
+            --text-color: #FF0066;
+            --hover-color: #FF3385;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .header p {
+            color: var(--text-color);
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 0, 102, 0.2);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .show-time {
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .show-time:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(255, 0, 102, 0.3);
+        }
+
+        .show-time span {
+            font-weight: bold;
+            color: var(--bg-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .show-time {
+                padding: 8px;
+            }
+
+            .show-time span {
+                font-size: 0.8rem;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style> 
+    <script>
+        function selectShowTime(element) {
+            var showTime = element.getAttribute('data-showtime');
+            var showDate = element.getAttribute('data-showdate');
+            var theaterId = element.getAttribute('data-theaterId');
+            document.getElementById('selectedShowTime').value = showTime;
+            document.getElementById('selectedShowDate').value = showDate;
+            document.getElementById('theaterId').value = theaterId;
+            document.getElementById('showTimeForm').submit();
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h2 th:text="'MovieName:' + ${param.movieName}"></h2>
+        <p th:text="'ShowDate:' + ${session.date}"></p>
+    </div>
+
+    <div class="container">
+        <form id="showTimeForm" th:action="@{/seat}" method="get">
+            <input type="hidden" id="selectedShowTime" name="selectedShowTime" />
+            <input type="hidden" id="selectedShowDate" name="selectedShowDate" />
+            <input type="hidden" id="theaterId" name="theaterId" />
+            <div th:if="${session.showList}">
+                <div th:each="entry : ${session.showList}">
+                    <h2 th:text="${entry.key}" class="pulse">Show</h2>
+                    <ul>
+                        <li th:each="movie : ${entry.value}" class="show-time"
+                            th:data-showtime="${movie.showTime}"
+                            th:data-showdate="${movie.showDate}"
+                            th:data-theaterId="${movie.theaterId}"
+                            th:onclick="selectShowTime(this)">
+                            <span th:text="${movie.showTime}">Show Time</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <input type="hidden" name="movieName" th:value="${param.movieName}">
+        </form>
+    </div>
+</body>
+</html>

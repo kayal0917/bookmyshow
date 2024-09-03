@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+      <script src="/JS/signIn.js"></script>
+   <link rel="stylesheet" href="/CSS/adminSignup.css">
+
+    <meta charset="UTF-8">
+    <title>Sign In Page</title>
+
+    
+</head>
+<body>
+    <div class="sign-form">
+        <h2 style="text-align: center;"><span style="color: black;"> Welcome to TicketFlick</span></h2>
+        <h3 style="text-align: center;">Sign In</h3>
+        <form name="signForm" th:action="@{/adminsignin}" method="get" onsubmit="return validateForm()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <br>
+            <button type="submit">Sign In</button>
+            <p style="text-align: center;">Don't have an account? <a th:href="@{/adminsignup}">Sign Up</a></p>
+        </form>
+    </div>
+</body>
+</html>

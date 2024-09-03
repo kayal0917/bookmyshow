@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #50c878;
+            --background-color: #f0f4f8;
+            --text-color: #333;
+            --nav-hover-color: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+        }
+
+        nav ul li {
+            list-style-type: none;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--nav-hover-color);
+            color: white;
+        }
+
+        main {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .summary-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin-bottom: 0.5rem;
+            }
+        }
+        .logout-form {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.logout-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: var(--nav-hover-color);
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Dashboard</h1>
+        </header>
+      <nav>
+    <ul>
+        <li><a th:href="@{/userList}"><i class="fas fa-users"></i> User List</a></li>
+        <li><a th:href="@{/theaterList}"><i class="fas fa-theater-masks"></i> Theater List</a></li>
+        <li><a th:href="@{/AllMovie}"><i class="fas fa-film"></i> Movie List</a></li>
+        <li><a th:href="@{/adminLists}"><i class="fas fa-user-shield"></i> Admin List</a></li>
+          <li><a th:href="@{/cityLists}"><i class="fas fa-city"></i> City List</a></li>
+    </ul>
+</nav>
+        <main>
+            <h2>Welcome to the Admin Panel</h2>
+            <p>Here's a quick overview of your system:</p>
+            <div class="dashboard-summary">
+                <div class="summary-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Total Users</h3>
+                    <p>10</p>
+                </div>
+                <div class="summary-card">
+                    <i class="fas fa-theater-masks"></i>
+                    <h3>Active Theaters</h3>
+                    <p>4</p>
+                </div>
+                <div class="summary-card">
+                    <i class="fas fa-film"></i>
+                    <h3>Movies Listed</h3>
+                    <p>7</p>
+                </div>
+                <div class="summary-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Tickets Sold</h3>
+                    <p>25</p>
+                </div>
+                <form action="/front" method="post" class="logout-form">
+            <button class="btn logout-btn" type="submit">Logout</button>
+        </form>
+            </div>
+        </main>
+    </div>
+    
+</body>
+</html>

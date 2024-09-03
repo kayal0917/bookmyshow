@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common.html :: head">
+    <title>User List</title>
+</head>
+
+<body>
+    <h1>User List</h1>
+
+    <div id="myGrid" style="height: 400px;"></div>
+
+<div th:replace="slickGridFragment.html :: slickGridFragment"></div>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var columns = [
+                { id: "userName", name: "UserName", field: "userName", sortable: true },
+                { id: "email", name: "Email", field: "email" },
+                { id: "location", name: "Location", field: "location", sortable: true },
+                { id: "delete", name: "Delete", field: "delete", formatter: deleteFormatter }
+            ];
+
+            var data = /*[[${users}]]*/[];
+
+            var grid;
+            list(data, columns);
+
+            function deleteFormatter(row, cell, value, columnDef, dataContext) {
+                return `
+                 <form action="/deleteuser" method="get" style="margin: 0;">
+                  <input type="hidden" name="userName" value="${dataContext.userName}">
+                  <input type="submit" name="delete" value="Delete">
+                 </form>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

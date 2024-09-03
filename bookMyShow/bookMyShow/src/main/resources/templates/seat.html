@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Seats</title>
+<style>
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.screen {
+    width: 80%;
+    height: 50px;
+    background-color: #ccc;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+    border-radius: 5px;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.seat {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    margin: 5px;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.seat:hover {
+    background-color: rgb(232, 53, 53);
+}
+
+.seat.selected {
+    background-color: rgb(232, 55, 55);
+}
+
+.seat.booked {
+    background-color: #575353;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(204, 49, 49);
+}
+</style>
+</head>
+<body>
+<h2 th:text="'Movie Name:' + ${param.movieName}"></h2>
+<p th:text="'Show Date:' + ${session.date}"></p>
+<p th:text="'Show Time:' + ${session.showList}"></p>
+
+
+<h1 style="text-align: center;">Choose Your Seats</h1>
+<form th:action="@{/processBooking}" method="post">
+    <div class="container">
+        <div class="screen">Screen</div>
+        <div th:each="row, rowStat : ${rows}">
+            <div class="row">
+                <div th:each="seatIndex : ${#numbers.sequence(1, 20)}">
+                    <div th:if="${isSeatFree[(rowStat.index * 20) + seatIndex - 1]}" class="seat free" th:id="${row} + ${seatIndex}">
+                        <span th:text="${row} + ${seatIndex}"></span>
+                    </div>
+                    <div th:unless="${isSeatFree[(rowStat.index * 20) + seatIndex - 1]}" class="seat booked" th:id="${row} + ${seatIndex}">
+                        <span th:text="${row} + ${seatIndex}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="selectedSeats" name="selectedSeats" />
+    <input type="hidden" id="selectedSeatsCount" name="selectedSeatsCount" />
+    <button type="submit" style="margin-left: 15px;">Submit</button>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const seats = document.querySelectorAll('.seat.free');
+
+    seats.forEach(seat => {
+        seat.addEventListener('click', () => {
+            if (seat.classList.contains('selected')) {
+                seat.classList.remove('selected');
+            } else {
+                seat.classList.add('selected');
+            }
+            updateSelectedSeats();
+        });
+    });
+
+    function updateSelectedSeats() {
+        const selectedSeats = Array.from(document.querySelectorAll('.seat.selected')).map(seat => seat.id);
+        document.getElementById('selectedSeats').value = selectedSeats.join(',');
+        document.getElementById('selectedSeatsCount').value = selectedSeats.length;
+    }
+});
+</script>
+</body>
+</html>

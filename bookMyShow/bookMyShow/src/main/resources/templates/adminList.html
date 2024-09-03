@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common.html :: head">
+    <title>User List</title>
+</head>
+
+<body>
+    <h1>User List</h1>
+
+    <div id="myGrid" style="height: 400px;"></div>
+
+  <div th:replace="slickGridFragment.html :: slickGridFragment"></div>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var columns = [
+                { id: "userName", name: "UserName", field: "userName", sortable: true },
+                {
+					id : "password",
+					name : "Password",
+					field : "password"
+				},
+
+            ];
+
+            var data = /*[[${user}]]*/[];
+
+            var grid;
+            list(data, columns);
+
+        });
+    </script>
+</body>
+</html>

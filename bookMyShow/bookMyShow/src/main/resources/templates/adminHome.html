@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Show</title>
+     <link rel="stylesheet" href="/CSS/adminHome.css">
+  
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a th:href="@{/dashboard}">Dashboard</a>
+        <a th:href="@{/addShow}">Add New Show</a>
+        <a th:href="@{/movie}">Add New Movie</a>
+        <a th:href="@{/showDetails}">Reports</a>
+    </div>
+    <div class="main-content">
+        <div class="form-container">
+            <h1>Add Show</h1>
+            <form action="#" th:action="@{/addShow}" method="post">
+                <label for="MovieName">Movie Name:</label>
+                <input type="text" id="MovieName" name="MovieName" th:required="required">
+                
+                <label for="ShowDate">Show Date:</label>
+                <input type="datetime-local" id="ShowDate" name="ShowDate" th:required="required">
+                
+                <label for="ShowTime">Show Time:</label>
+                <input type="datetime-local" id="ShowTime" name="ShowTime" th:required="required">
+                
+                <input type="submit" value="Add Show">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

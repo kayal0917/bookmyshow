@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #ffffff; /* White background */
+        }
+
+        .ticket {
+            width: 600px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            position: relative;
+            display: flex;
+        }
+
+        .ticket-stub {
+            width: 200px;
+            background: linear-gradient(to right, #c84e4e, #ffffff); /* Lighter red to white gradient */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            padding: 20px;
+            border-right: 2px dashed rgba(255, 255, 255, 0.5); /* Light white dashed line */
+            color: #ffffff; /* White text color for the stub */
+        }
+
+        .ticket-main {
+            flex: 1;
+            background: white; /* White background for the main section */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #8e0000; /* Softer red text color */
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .ticket-info {
+            color: #8e0000; /* Softer red text color */
+            font-size: 16px;
+            text-align: center; /* Center text horizontally */
+        }
+
+        .ticket-info span {
+            font-weight: bold;
+        }
+
+        .ticket-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #8e0000; /* Softer red text color */
+            font-size: 14px;
+        }
+
+        .confirmation {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .confirmation input, .confirmation button {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .confirmation input {
+            border: 2px solid #8e0000; /* Softer red border */
+            outline: none;
+        }
+
+        .btn {
+            background-color: #8e0000; /* Softer red background */
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #660000; /* Darker red on hover */
+        }
+
+        .email-btn {
+            margin-bottom: 15px;
+        }
+
+        .logout-btn {
+            background-color: #b71c1c; /* Deeper red background */
+        }
+
+        .logout-btn:hover {
+            background-color: #660000; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="ticket-stub">
+            <div class="ticket-header">
+                <span>TICKETRICK</span>
+            </div>
+            <div class="ticket-info">
+                <div><span>Seat:</span> <span th:text="${allocation.seat}"></span></div>
+                <div><span>Time:</span> <span th:text="${allocation.showTime}"></span></div>
+            </div>
+        </div>
+        <div class="ticket-main">
+            <div class="ticket-header">
+                <img src="picture/logo7.png" alt="Logo" class="logo">
+                <span>TICKETTRICK</span>
+            </div>
+            <div class="ticket-info">
+                <div><span>Movie:</span> <span th:text="${allocation.movieName}"></span></div>
+                <div><span>Name:</span> <span th:text="${allocation.userName}"></span></div>
+                <div><span>Date:</span> <span th:text="${session.date}"></span></div>
+                <div><span>Time:</span> <span th:text="${allocation.showTime}"></span></div>
+                <div><span>Seat:</span> <span th:text="${allocation.seat}"></span></div>
+                <div><span>Seat Count:</span> <span th:text="${allocation.SeatCount}"></span></div>
+                <div><span>Total:</span> <span th:text="${session.totalAmount}"></span></div>
+            </div>
+            <div class="ticket-footer">
+                <span>Ticket #</span>
+                <span th:text="${allocation.SeatCount}"></span>
+            </div>
+        </div>
+    </div>
+    <div class="confirmation">
+        <form action="/sendEmail" method="get">
+            <input type="text" name="email" placeholder="Enter your email">
+            <button class="btn email-btn" type="submit">Get Ticket</button>
+        </form>
+        <form action="/front" method="post" class="logout-form">
+            <button class="btn logout-btn" type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

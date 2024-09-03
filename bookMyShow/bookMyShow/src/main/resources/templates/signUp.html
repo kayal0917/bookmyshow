@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicketTrick - Sign Up / Sign In</title>
+    <link rel="stylesheet" href="/CSS/signUp.css">
+    <!-- Include SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+        <div class="form-container sign-up-container">
+            <form id="signUpForm" th:action="@{/theateradmin}" method="get">
+                <h2>Welcome to TicketFlick</h2>
+                <h3>Sign Up</h3>
+                <input type="text" id="signUpUserName" name="userName" placeholder="Username" pattern="^[a-zA-Z][a-zA-Z0-9_-]{3,19}$" required>
+                <input type="password" id="signUpPassword" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$!%*?&])[A-Za-z\d$!%*?&]{8,}" required>
+                <input type="password" id="signUpConfirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                <select id="signUpCity" name="location" class="form-control mb-2">
+                    <option th:value="Location" th:text="Location"></option>
+                    <th:block th:each="city : ${session.cities}">
+                        <option th:value="${city}" th:text="${city}"></option>
+                    </th:block>
+                </select>
+                <input type="text" id="signUpTheater" name="theater" placeholder="Theater name" pattern="^[a-zA-Z]+$" required>
+                <button type="button" onclick="validateSignUpForm()">Sign Up</button>
+                <p>
+                    Already have an account? <a th:href="@{/control}">Sign In</a>
+                </p>
+            </form>
+        </div>
+        
+        <!-- Sign In Form -->
+        <div class="form-container sign-in-container">
+            <form id="signInForm" th:action="@{/signUp}" method="post">
+                <h2>TicketTrick</h2>
+                <h3>Sign Up</h3>
+                <input type="text" id="signInUserName" name="userName" placeholder="Username" pattern="^[a-zA-Z]+$" required>
+                <input type="email" id="signInEmail" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                <input type="password" id="signInPassword" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$!%*?&])[A-Za-z\d$!%*?&]{8,}" required>
+                <select id="signInCity" name="location" class="form-control mb-2">
+                    <option th:value="Location" th:text="Location"></option>
+                    <th:block th:each="city : ${session.cities}">
+                        <option th:value="${city}" th:text="${city}"></option>
+                    </th:block>
+                </select>
+                <button type="button" onclick="validateSignInForm()">Sign Up</button>
+                <p>
+                    Already have an account? <a th:href="@{/control}">Sign In</a>
+                </p>
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h2>Welcome!</h2>
+                    <button class="ghost" id="signIn">User</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h2>Hello, Friend!</h2>
+                    <button class="ghost" id="signUp">Admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Include SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.js"></script>
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+
+        function validateSignUpForm() {
+            const password = document.getElementById('signUpPassword').value;
+            const confirmPassword = document.getElementById('signUpConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Passwords do not match!',
+                });
+                return false;
+            }
+
+            // Assuming server-side validation is successful
+            Swal.fire({
+                icon: 'success',
+                title: 'Successfully Registered!',
+                text: 'You will be redirected shortly.',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(() => {
+                document.getElementById('signUpForm').submit(); // Manually submit the form after SweetAlert
+            });
+
+            return false; // Prevent default form submission to display the alert
+        }
+
+        function validateSignInForm() {
+            // Assuming server-side validation is successful
+            Swal.fire({
+                icon: 'success',
+                title: 'SignUp Successfully!',
+                showConfirmButton: false,
+                timer: 2000
+            }).then(() => {
+                document.getElementById('signInForm').submit(); // Manually submit the form after SweetAlert
+            });
+
+            return false; // Prevent default form submission to display the alert
+        }
+    </script>
+</body>
+</html>

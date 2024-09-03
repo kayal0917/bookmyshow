@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+.main {
+    position: relative;
+}
+
+.main .top-bar {
+    background: #279CEB;
+    height: 65px;
+    color: #FFF;
+}
+
+.main .top-bar .profile-box {
+    float: right;
+    background: #3AB0FF;
+    height: 65px;
+    line-height: 65px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.main .top-bar .profile-box .circle {
+    background: #FFF;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    display: block;
+    float: left;
+    margin-top: 15px;
+}
+
+.main .top-bar .profile-box .arrow {
+    float: left;
+    margin-left: 10px;
+    line-height: 65px;
+}
+
+.main .top-bar .top-menu {
+    height: 65px;
+    overflow: hidden;
+}
+
+.main .top-bar .top-menu li {
+    float: left;
+    font-size: 14px;
+}
+
+.main .top-bar .top-menu a {
+    padding: 0 25px;
+    color: #EEE;
+    line-height: 65px;
+    display: block;
+}
+
+.main .top-bar .top-menu a:hover {
+    color: #FFF;
+    background: rgba(58, 176, 255, 0.35);
+}
+
+.main .top-bar .top-menu li.active a {
+    background: #3AB0FF;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.main .top-bar .logo {
+    height: 70px;
+    position: relative;
+    left: 400px;
+}
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="">
+            <img src="/picture/logo7.png" alt="logo" width="120" height="80" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/movie/byTitle}" method="get">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="title" name="title"/>
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
+                    Find Movie
+                </button>
+            </form>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-2">
+                <img class="rounded mx-auto d-block" th:src="@{${movie.poster}}" alt="movie poster" width="100%" height="90%" />
+            </div>
+            <div class="col-md-8">
+                <h1 th:text="${movie.title}">Movie Title</h1>
+                <p th:text="${movie.plot}">Movie description goes here.</p>
+                <h6>Director: <span th:text="${movie.director}">Director's name</span></h6>
+                <h6>Writer: <span th:text="${movie.writer}">Writer's name</span></h6>
+                <h6>Cast: <span th:text="${movie.actors}">Actors' names</span></h6>
+                <h6>Genre: <span th:text="${movie.genre}">Movie genre</span></h6>
+                <h6>Duration: <span th:text="${movie.runtime}">Movie duration</span></h6>
+                <h6>Rating: <span th:text="${movie.imdbRating}">Rating</span></h6>
+                <h6>Release Date: <span th:text="${movie.released}">Release date</span></h6>
+                <h6>Language: <span th:text="${movie.language}">Language</span></h6>
+                <h6>Country: <span th:text="${movie.country}">Country</span></h6>
+                <h6>Awards: <span th:text="${movie.awards}">Awards</span></h6>
+                <h6>Box Office: <span th:text="${movie.boxOffice}">Box Office</span></h6>
+                <h6>Production: <span th:text="${movie.production}">Production</span></h6>
+
+                <div th:if="${movie != null}">
+                    <form class="calender" th:action="@{/showTime}" method="get">
+                        <input type="hidden" name="movieName" th:value="${movie.title}" />
+                       <div class="container">
+        <div class="form-group">
+            <label for="start">Show Date:</label>
+            <input type="date" id="start" name="showDate" class="form-control" required>
+        </div>
+    </div>
+        <script>
+        
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('start');
+            dateInput.setAttribute('min', today);
+            dateInput.setAttribute('value', today);
+        });
+    </script> 
+                        <div th:if="${isMovieAvaiable}" ><button type="submit" class="btn btn-danger">Book Now</button></div>
+                    </form>
+                </div>
+                <div th:if="${movie == null}">
+                    <p class="text-danger">Movie not available for booking.</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <footer>
+            <p style="text-align: center;">TicketTrick@gmail.com</p>
+        </footer>
+    </div>
+</body>
+</html>

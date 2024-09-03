@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorized Properties</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" th:href="@{/Assets/Nest Realty.jpg}">
+    <link rel="stylesheet" th:href="@{/lib/slick.grid.css}" type="text/css">
+    <link rel="stylesheet" href="/CSS/movieList.css">
+</head>
+<body>
+    <h1>Movie List</h1>
+    <div id="myGrid" style="height: 400px;"></div>
+
+    <!-- JS libraries -->
+    <script th:src="@{/lib/jquery-1.7.min.js}"></script>
+    <script th:src="@{/lib/jquery-ui-1.8.16.custom.min.js}"></script>
+    <script th:src="@{/lib/jquery.event.drag-2.2.js}"></script>
+    <script th:src="@{/lib/slick.formatters.js}"></script>
+    <script th:src="@{/lib/slick.core.js}"></script>
+    <script th:src="@{/lib/slick.dataview.js}"></script>
+    <script th:src="@{/lib/slick.grid.js}"></script>
+
+    <!-- Initialize the grid -->
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var columns = [
+                { id: "title", name: "Title", field: "title", width: 100, sortable: true },
+                { id: "genre", name: "Genre", field: "genre" },
+                { id: "base64", name: "Image", field: "base64", width: 100, formatter: viewButtonFormatter },
+                { id: "delete", name: "Delete", field: "delete", width: 100, formatter: deleteButtonFormatter }
+            ];
+
+            var options = {
+                enableCellNavigation: true,
+                enableColumnReorder: false,
+                forceFitColumns: true,
+                rowHeight: 45,
+                enableSorting: true
+            };
+
+            // Use Thymeleaf to initialize the data array
+            var data = /*[[${allmovies}]]*/ [];
+
+            function viewButtonFormatter(row, cell, value, columnDef, dataContext) {
+                return `
+                    <form action="/view" method="post">
+                        <input type="hidden" name="title" value="${dataContext.title}">
+                        <button type="submit" class="view-btn">View</button>
+                    </form>`;
+            }
+
+            function deleteButtonFormatter(row, cell, value, columnDef, dataContext) {
+                return `
+                    <form action="/deleteMovie" method="post">
+                        <input type="hidden" name="title" value="${dataContext.title}">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>`;
+            }
+
+            var grid = new Slick.Grid("#myGrid", data, columns, options);
+
+            grid.onSort.subscribe(function (e, args) {
+                var field = args.sortCol.field;
+                data.sort(function (a, b) {
+                    var result = (a[field] > b[field]) ? 1 : ((a[field] < b[field]) ? -1 : 0);
+                    return args.sortAsc ? result : -result;
+                });
+                grid.invalidate();
+                grid.render();
+            });
+
+            $('#searchInput').on('input', function () {
+                var searchTerm = $(this).val().toLowerCase();
+                var filteredData = data.filter(function (item) {
+                    return Object.values(item).some(function (value) {
+                        return String(value).toLowerCase().includes(searchTerm);
+                    });
+                });
+                grid.setData(filteredData);
+                grid.invalidate();
+                grid.render();
+            });
+        });
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

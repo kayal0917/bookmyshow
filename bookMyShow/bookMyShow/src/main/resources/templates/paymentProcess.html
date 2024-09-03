@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Method</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative; /* Add this line */
+        }
+
+        .payment-details {
+            position: absolute; /* Position absolutely */
+            top: 20px; /* Position from the top */
+            left: 20px; /* Position from the left */
+            font-size: 0.9em; /* Font size for details */
+        }
+
+        .payment-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            margin-bottom: 20px;
+        }
+
+        .payment-method label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .card-details label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .card-details input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -8px;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .total span {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <!-- Payment Details on Top Left -->
+    <div class="payment-details">
+        <p th:text="'Movie Name: ' + ${session.movie}"></p>
+        <p th:text="'Show Date: ' + ${session.date}"></p>
+        <p th:text="'Show Time: ' + ${session.allocation.showTime}"></p>
+        <p>Sub total: Rs. <span th:text="${session.allocation.totalAmount}"></span></p>
+    </div>
+
+    <!-- Payment Form -->
+    <form id="payment-form" th:action="@{/ticket}" method="post" onsubmit="validateForm(event)">
+        <div class="payment-container">
+            <h2>Payment Method</h2>
+            <div class="payment-method">
+                <label>
+                    <input type="radio" name="payment" value="credit-card" checked>
+                    Credit Card
+                </label>
+                <div class="card-details">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card-number" placeholder="**** **** **** ****">
+                    <span id="card-number-error" class="error"></span>
+
+                    <label for="exp-date">EXP DATE</label>
+                    <input type="text" id="exp-date" name="exp-date" placeholder="mm/yyyy">
+                    <span id="exp-date-error" class="error"></span>
+
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123">
+                    <span id="cvv-error" class="error"></span>
+                </div>
+            </div>
+
+            <div class="total">
+                TOTAL: Rs. <span th:text="${session.allocation.totalAmount}"></span>
+                <button type="submit">Confirm & Pay</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();  // Prevent form submission for validation
+
+            let valid = true;
+            const cardNumber = document.getElementById('card-number').value;
+            const expDate = document.getElementById('exp-date').value;
+            const cvv = document.getElementById('cvv').value;
+
+            // Reset error messages
+            document.getElementById('card-number-error').innerText = '';
+            document.getElementById('exp-date-error').innerText = '';
+            document.getElementById('cvv-error').innerText = '';
+
+            // Validate card number (must be 16 digits)
+            const cardNumberPattern = /^\d{16}$/;
+            if (!cardNumberPattern.test(cardNumber)) {
+                document.getElementById('card-number-error').innerText = 'Card number must be 16 digits.';
+                valid = false;
+            }
+
+            // Validate expiration date (mm/yyyy format)
+            const expDatePattern = /^(0[1-9]|1[0-2])\/\d{4}$/;
+            if (!expDatePattern.test(expDate)) {
+                document.getElementById('exp-date-error').innerText = 'Expiration date must be in mm/yyyy format.';
+                valid = false;
+            }
+
+            // Validate CVV (must be 3 digits)
+            const cvvPattern = /^\d{3}$/;
+            if (!cvvPattern.test(cvv)) {
+                document.getElementById('cvv-error').innerText = 'CVV must be 3 digits.';
+                valid = false;
+            }
+
+            // If all fields are valid, submit the form
+            if (valid) {
+                document.getElementById('payment-form').submit();
+            }
+        }
+    </script>
+</body>
+</html>

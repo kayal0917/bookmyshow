@@ -1,0 +1,87 @@
+@charset "ISO-8859-1";
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    color: #444;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    background: -webkit-linear-gradient(#ee0979, #ff6a00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#searchInput {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#myGrid {
+    height: 400px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    padding: 20px;
+}
+
+.slick-header-column {
+    background: linear-gradient(to right, #ee0979, #ff6a00);
+    color: white;
+    font-weight: bold;
+}
+
+.slick-header-column .slick-column-name {
+    color: #fff;
+}
+
+.slick-row {
+    transition: background-color 0.3s ease;
+}
+
+.slick-row:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.slick-row:hover {
+    background-color: #ffecd2;
+}
+
+.slick-cell {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.slick-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.view-btn, .update-btn, .delete-btn {
+    background-color: #ee0979;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.view-btn:hover, .update-btn:hover, .delete-btn:hover {
+    background-color: #ff6a00;
+}
+
+@media (max-width: 600px) {
+    #myGrid, .slick-header-column, .slick-row, .slick-cell {
+        display: block;
+        width: 100%;
+    }
+}

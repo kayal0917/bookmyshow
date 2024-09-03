@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common.html :: head">
+    <title>City List</title>
+</head>
+
+<body>
+    <h1>City List</h1>
+
+    <form action="/addcity" method="post" style="margin-bottom: 20px;">
+        <label for="cityName">City Name:</label>
+        <input type="text" id="cityName" name="cityName" required>
+        <button type="submit">Add City</button>
+    </form>
+
+    <div id="myGrid" style="height: 400px;"></div>
+
+    <div th:replace="slickGridFragment.html :: slickGridFragment"></div>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var columns = [
+                { id: "cityName", name: "City Name", field: "cityName", sortable: true },
+                { id: "delete", name: "Delete", field: "delete", sortable: false, formatter: deleteFormatter }
+            ];
+
+            var options = {
+                    enableCellNavigation: true,
+                    enableColumnReorder: false,
+                    forceFitColumns: true,
+                    rowHeight: 45
+                };
+
+            // Convert Thymeleaf data to JSON format for JavaScript
+            var data = /*[[${uniqueCitiesList}]]*/ [];
+
+            // Ensure the data is formatted correctly as a JavaScript array of objects
+            data = data.map(cityName => ({ cityName: cityName }));
+
+            var grid = new Slick.Grid("#myGrid", data, columns, options);
+
+            function deleteFormatter(row, cell, value, columnDef, dataContext) {
+                return `
+                    <form action="/deletecity" method="post" style="margin: 0;">
+                        <input type="hidden" name="cityName" value="${dataContext.cityName}">
+                        <input type="submit" name="delete" value="Delete">
+                    </form>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

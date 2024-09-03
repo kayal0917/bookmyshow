@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Movies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Search for Movies</h1>
+
+        <!-- Search by Movie ID -->
+        <h2 class="mt-4">Search by Movie ID</h2>
+        <form th:action="@{/movie/byId}" method="get">
+            <div class="form-group">
+                <label for="imdbId">Movie ID</label>
+                <input type="text" id="imdbId" name="imdbId" class="form-control" placeholder="Enter IMDb ID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Search by Movie Title -->
+        <h2 class="mt-4">Search by Movie Title</h2>
+        <form th:action="@{/movie/byTitle}" method="get">
+            <div class="form-group">
+                <label for="title">Movie Title</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Enter Movie Title" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Search by Movie Title and Year -->
+        <h2 class="mt-4">Search by Movie Title and Year</h2>
+        <form th:action="@{/movie/byTitleAndYear}" method="get">
+            <div class="form-group">
+                <label for="titleYear">Movie Title</label>
+                <input type="text" id="titleYear" name="title" class="form-control" placeholder="Enter Movie Title" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="text" id="year" name="year" class="form-control" placeholder="Enter Year" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Search by Movie Title (Alternative Method) -->
+        <h2 class="mt-4">Search Movies (Alternative)</h2>
+        <form th:action="@{/movie/search}" method="get">
+            <div class="form-group">
+                <label for="titleSearch">Movie Title</label>
+                <input type="text" id="titleSearch" name="title" class="form-control" placeholder="Enter Movie Title" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</body>
+</html>

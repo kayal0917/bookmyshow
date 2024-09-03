@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/CSS/adminSignup.css">
+    <script src="/JS/adminSignUp.js"></script>
+    
+    <title>Sign Up Page</title>
+
+</head>
+<body>
+    <div class="sign-form">
+        <form th:action="@{/adminSignIn}" method="post" onsubmit="return validateForm()">
+            <h2>Welcome to TicketFlick</h2>
+            <h3>Sign Up</h3>
+            <label for="userName">Username:</label>
+            <input type="text" id="userName" name="userName" placeholder="Username" pattern="^[a-zA-Z][a-zA-Z0-9_-]{3,19}$" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" required><br>
+            <label for="location">Location:</label>
+            <select id="location" name="location" required>
+                <option value="" disabled selected>Select your location</option>
+                <option value="Madurai">Madurai</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Tiruchirappalli">Tiruchirappalli</option>
+                <option value="Salem">Salem</option>
+                <option value="Tirunelveli">Tirunelveli</option>
+                <option value="Thanjavur">Thanjavur</option>
+                <option value="Vellore">Vellore</option>
+                <option value="Kanyakumari">Kanyakumari</option>
+            </select><br>
+            <label for="theater">Theater:</label>
+            <input type="text" id="theater" name="theater" placeholder="Theater name" pattern="^[a-zA-Z]+$" required><br>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="sign-link">
+            <p>
+                Already have an account? <a th:href="@{/adminSignIn}">Sign In</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

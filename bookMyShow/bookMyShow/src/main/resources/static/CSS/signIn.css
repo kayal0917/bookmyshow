@@ -1,0 +1,196 @@
+        @charset "ISO-8859-1";
+
+        :root {
+            --primary-color: #ee0979; /* Red */
+            --secondary-color: #ff6a00; /* Orange */
+            --tertiary-color: #fcb69f; /* Pink */
+            --background-color: #dfe6e9;
+            --text-color: #2d3436;
+            --error-color: #d63031;
+            --success-color: #00b894;
+            --form-bg: rgba(255, 255, 255, 0.8);
+            --input-bg: #f0f0f0; /* Light grey */
+            --input-border: #b0b0b0; /* Light grey border */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            perspective: 1000px;
+        }
+
+        .sign-form {
+            background-color: var(--form-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            transform-style: preserve-3d;
+            transform: rotateX(5deg) rotateY(-5deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .sign-form:hover {
+            transform: rotateX(0deg) rotateY(0deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h2, h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        label {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            transform: translateY(-50%);
+            background-color: var(--form-bg);
+            padding: 0 5px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--input-border);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--input-bg);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(238, 9, 121, 0.2);
+        }
+
+        input:focus + label, select:focus + label,
+        input:not(:placeholder-shown) + label, select:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 0.7rem;
+            color: var(--primary-color);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .sign-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .sign-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .sign-link a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Custom select arrow */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ee0979' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .signin-form {
+                padding: 30px;
+                transform: none;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Animation for form appearance */
+        @keyframes formAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px) rotateX(5deg) rotateY(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(5deg) rotateY(-5deg);
+            }
+        }
+
+        .sign-form {
+            animation: formAppear 0.5s ease-out;
+        }
