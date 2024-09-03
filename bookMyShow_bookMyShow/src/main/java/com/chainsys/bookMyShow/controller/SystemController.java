@@ -441,7 +441,7 @@ public class SystemController {
 		return "adminSignin";
 	}
 
-	@RequestMapping("/front")
+	@GetMapping("/frontApp")
 	public String front() {
 		return "front";
 	}
